@@ -1,0 +1,16 @@
+2025-04-17 15:33:33,355 Loading checkpoints from ./models/mld_humanml3d_checkpoint/1222_mld_humanml3d_FID041.ckpt
+2025-04-17 15:33:33,834 model mld loaded
+2025-04-17 15:33:35,017 Motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-17-15-33-30/Example_100_batch0_0.npy
+2025-04-17 15:33:35,019 Motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-17-15-33-30/Example_100_batch0_1.npy
+2025-04-17 15:33:35,020 Motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-17-15-33-30/Example_100_batch0_2.npy
+2025-04-17 15:33:35,596 Motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-17-15-33-30/Example_100_batch0_0.npy
+2025-04-17 15:33:35,597 Motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-17-15-33-30/Example_100_batch0_1.npy
+2025-04-17 15:33:35,597 Motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-17-15-33-30/Example_100_batch0_2.npy
+2025-04-17 15:33:35,600 All reconstructed motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-17-15-33-30/Example_100_all.npy

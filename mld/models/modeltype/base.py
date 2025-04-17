@@ -75,7 +75,7 @@ class BaseModel(LightningModule):
         if not self.trainer.sanity_checking:
             self.log_dict(dico, sync_dist=True, rank_zero_only=True)
 
-    def training_epoch_end(self, outputs):
+    def on_train_epoch_end(self, outputs): ## LTC - modify training_epoch_end -> on_train_epoch)end
         return self.allsplit_epoch_end("train", outputs)
 
     def validation_epoch_end(self, outputs):
