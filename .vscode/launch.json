@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+      {
+        "name": "Debug Text-to-Motion Demo",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/demo.py",
+        "args": [
+          "--cfg", "./configs/config_mld_humanml3d.yaml",
+          "--cfg_assets", "./configs/assets.yaml",
+          "--example", "./demo/example.txt",
+          "--task", "text_motion",
+          "--replication", "2",
+          "--allinone"
+        ],
+        "console": "integratedTerminal"
+      }
+
+      {
+        "name": "Debug Train VAE HumanML3D",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/train.py",
+        "args": [
+          "--cfg", "configs/config_vae_humanml3d.yaml",
+          "--cfg_assets", "configs/assets.yaml",
+          "--batch_size", "16",
+          "--nodebug"
+        ],
+        "console": "integratedTerminal"
+      }
+    ]
+  }
+  
