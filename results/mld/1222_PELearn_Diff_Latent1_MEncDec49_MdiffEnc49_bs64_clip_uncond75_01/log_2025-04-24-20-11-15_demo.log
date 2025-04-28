@@ -1,0 +1,8 @@
+2025-04-24 20:11:18,707 Loading checkpoints from ./models/mld_humanml3d_checkpoint/1222_mld_humanml3d_FID041.ckpt
+2025-04-24 20:11:19,177 model mld loaded
+2025-04-24 20:11:20,203 Motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-24-20-11-15/Example_200_batch0_0.npy
+2025-04-24 20:11:20,646 Motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-24-20-11-15/Example_200_batch0_0.npy
+2025-04-24 20:11:20,647 All reconstructed motions are generated here:
+results/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01/samples_2025-04-24-20-11-15/Example_200_all.npy
