@@ -134,11 +134,13 @@ def main():
     ]
     logger.info("Callbacks initialized")
 
-    if len(cfg.DEVICE) > 1:
+    if len(cfg.DEVICE) > 0: # LTC - I only have 1 device
         # ddp_strategy = DDPStrategy(find_unused_parameters=False)
         ddp_strategy = "ddp"
     else:
         ddp_strategy = None
+    
+    ddp_strategy = "ddp_find_unused_parameters_true" # LTC
 
     # trainer
     trainer = pl.Trainer(

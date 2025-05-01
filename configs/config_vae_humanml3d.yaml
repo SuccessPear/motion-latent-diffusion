@@ -16,7 +16,7 @@ TRAIN:
   NUM_WORKERS: 11 # Number of workers
   BATCH_SIZE: 128 # Size of batches
   START_EPOCH: 0 # Start epochMMOTIONENCODER
-  END_EPOCH: 6000 # End epoch
+  END_EPOCH: 1 # End epoch # LTC
   RESUME: '' # Resume training from this path
   PRETRAINED_VAE: ''
   OPTIM:
