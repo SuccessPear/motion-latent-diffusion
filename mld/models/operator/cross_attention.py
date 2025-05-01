@@ -262,10 +262,10 @@ class TransformerEncoderLayer(nn.Module):
                      src_key_padding_mask: Optional[Tensor] = None,
                      pos: Optional[Tensor] = None):
         q = k = self.with_pos_embed(src, pos)
-        print(f"Before attention: {q.shape}, {k.shape}, {src.shape}")
+        #print(f"Before attention: {q.shape}, {k.shape}, {src.shape}")
         src2 = self.self_attn(q, k, value=src, attn_mask=src_mask,
                               key_padding_mask=src_key_padding_mask)[0]
-        print(f"After  attention: {src2.shape}")
+        #print(f"After  attention: {src2.shape}")
         src = src + self.dropout1(src2)
         src = self.norm1(src)
         src2 = self.linear2(self.dropout(self.activation(self.linear1(src))))
