@@ -107,7 +107,7 @@ def main():
     logger.info("Loading checkpoints from {}".format(cfg.TEST.CHECKPOINTS))
 
     state_dict = torch.load(cfg.TEST.CHECKPOINTS,
-                            map_location="cpu")["state_dict"]
+                            map_location="cpu", weights_only=False)["state_dict"]
     model.load_state_dict(state_dict)
 
     all_metrics = {}

@@ -3,7 +3,7 @@
 ####################################
 
 # Experiment name, more details in Section 'Experiment Name Explanation'
-NAME: 1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01
+NAME: 1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs8_clip_uncond75_01
 # Debug mode. Set to True will enter the debug mode, then the program will
 # 1. use a tiny dataset for trianing and evaluation
 # 2. validate more intensively
@@ -30,7 +30,7 @@ TRAIN:
   END_EPOCH: 2000
 
   RESUME: '' # Resume training from this path
-  PRETRAINED_VAE: '' # vae model path
+  PRETRAINED_VAE: 'experiments/mld/1222_PELearn_VAE_MEncDec49_MdiffEnc49_bs8_clip_uncond75_01/checkpoints/last-v1.ckpt' # vae model path # LTC
   OPTIM:
     TYPE: AdamW # Optimizer type
     LR: 1e-4 # Learning rate
@@ -52,7 +52,8 @@ EVAL:
 # The following are testing settings
 #####################################
 TEST:
-  CHECKPOINTS: ./models/mld_humanml3d_checkpoint/1222_mld_humanml3d_FID041.ckpt # Pretrained model path
+  CHECKPOINTS: experiments/mld/1222_PELearn_Diff_Latent1_MEncDec49_MdiffEnc49_bs8_clip_uncond75_01/checkpoints/last.ckpt
+  #CHECKPOINTS: ./models/mld_humanml3d_checkpoint/1222_mld_humanml3d_FID041.ckpt # Pretrained model path
   DATASETS: ['humanml3d'] # training datasets
   SPLIT: test
   BATCH_SIZE: 1 # training Batch size

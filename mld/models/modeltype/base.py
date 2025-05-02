@@ -76,7 +76,7 @@ class BaseModel(LightningModule):
             self.log_dict(dico, sync_dist=True, rank_zero_only=True)
 
     def on_train_epoch_end(self): ## LTC - modify training_epoch_end -> on_train_epoch)end
-        return self.allsplit_epoch_end("train", "")
+        return self.allsplit_epoch_end("train", "outputs")
 
     def on_validation_epoch_end(self):
         # # ToDo
@@ -85,10 +85,11 @@ class BaseModel(LightningModule):
         # parameters = {"xx",xx}
         # vis_path = viz_epoch(self, dataset, epoch, parameters, module=None,
         #                         folder=parameters["folder"], writer=None, exps=f"_{dataset_val.dataset_name}_"+val_set)
-        return self.allsplit_epoch_end("val", "")
+        return self.allsplit_epoch_end("val", "outputs")
 
-    def test_epoch_end(self, outputs):
-        self.save_npy(outputs)
+    def on_test_epoch_end(self):
+        outputs = ""
+        #self.save_npy(outputs)
         self.cfg.TEST.REP_I = self.cfg.TEST.REP_I + 1
 
         return self.allsplit_epoch_end("test", outputs)

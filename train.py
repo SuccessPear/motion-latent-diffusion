@@ -124,11 +124,11 @@ def main():
         ModelCheckpoint(
             dirpath=os.path.join(cfg.FOLDER_EXP, "checkpoints"),
             filename="{epoch}",
-            monitor="step",
+            monitor="val_loss",
             mode="max",
             every_n_epochs=cfg.LOGGER.SACE_CHECKPOINT_EPOCH,
             save_top_k=-1,
-            save_last=False,
+            save_last=True,
             save_on_train_epoch_end=True,
         ),
     ]
@@ -168,7 +168,7 @@ def main():
         logger.info("Loading pretrain vae from {}".format(
             cfg.TRAIN.PRETRAINED_VAE))
         state_dict = torch.load(cfg.TRAIN.PRETRAINED_VAE,
-                                map_location="cpu")["state_dict"]
+                                map_location="cpu", weights_only=False)["state_dict"]
         # extract encoder/decoder
         from collections import OrderedDict
         vae_dict = OrderedDict()
@@ -183,7 +183,7 @@ def main():
             cfg.TRAIN.PRETRAINED))
         logger.info("Attention! VAE will be recovered")
         state_dict = torch.load(cfg.TRAIN.PRETRAINED,
-                                map_location="cpu")["state_dict"]
+                                map_location="cpu", weights_only=False)["state_dict"]
         # remove mismatched and unused params
         from collections import OrderedDict
 
