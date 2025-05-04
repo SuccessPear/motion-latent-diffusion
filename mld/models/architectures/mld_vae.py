@@ -180,6 +180,7 @@ class MldVae(nn.Module):
             logvar = dist[self.latent_size:, ...]
 
         # resampling
+        logvar = logvar.clamp(min=-10.0, max=10.0)
         std = logvar.exp().pow(0.5)
         dist = torch.distributions.Normal(mu, std)
         latent = dist.rsample()
