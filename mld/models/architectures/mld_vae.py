@@ -78,6 +78,7 @@ class MldVae(nn.Module):
             activation,
             normalize_before,
         )
+        encoder_layer = FFTNetLayer(dim=self.latent_dim)
         encoder_norm = nn.LayerNorm(self.latent_dim)
         self.encoder = SkipTransformerEncoder(encoder_layer, num_layers,
                                               encoder_norm)
@@ -247,3 +248,68 @@ class MldVae(nn.Module):
         # Pytorch Transformer: [Sequence, Batch size, ...]
         feats = output.permute(1, 0, 2)
         return feats
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+# LTC - ModReLU
+class ModReLU(nn.Module):
+    def __init__(self, dim):
+        super().__init__()
+        self.bias = nn.Parameter(torch.zeros(dim))
+
+    def forward(self, z):
+        # z: [seq_len, batch, dim] (complex)
+        magnitude = torch.abs(z)
+        phase = z / (magnitude + 1e-6)
+        activated = F.relu(magnitude + self.bias)
+        return activated * phase
+# LTC - FFT
+class FFTNetLayer(nn.Module):
+    def __init__(self, dim):
+        super().__init__()
+        self.d_model = dim
+
+        self.mlp = nn.Sequential(
+            nn.Linear(dim, dim * 2),
+            nn.ReLU(),
+            nn.Linear(dim * 2, dim)  # we'll reshape this later
+        )
+
+        self.modrelu = ModReLU(dim)
+        self.norm = nn.LayerNorm(dim)
+        self.ffn = nn.Sequential(
+            nn.Linear(dim, dim * 4),
+            nn.ReLU(),
+            nn.Linear(dim * 4, dim)
+        )
+
+    def forward(self,
+            src,
+            src_mask: Optional[torch.Tensor] = None,
+            src_key_padding_mask: Optional[torch.Tensor] = None,
+            pos: Optional[torch.Tensor] = None) -> torch.Tensor:
+        """
+        src: [seq_len, batch_size, dim]
+        """
+        # Just ignore the unused inputs
+        L, B, D = src.shape
+        assert D == self.d_model
+
+        # FFT → Adaptive Filter → modReLU → IFFT
+        x_fft = torch.fft.fft(src, dim=0)
+        c = src.mean(dim=0)  # [B, D]
+        delta_w = self.mlp(c).unsqueeze(1).expand(B, L, D)
+        w_base = torch.ones((1, L, D), device=src.device)
+        w = w_base + delta_w
+        w = torch.complex(w, torch.zeros_like(w))
+
+        x_fft = x_fft.permute(1, 0, 2) * w
+        x_fft = x_fft.permute(1, 0, 2)
+        x_fft = self.modrelu(x_fft)
+        x_ifft = torch.fft.ifft(x_fft, dim=0).real
+
+        src = self.norm(src + x_ifft)
+        src = src + self.ffn(self.norm(src))
+        return src
+
