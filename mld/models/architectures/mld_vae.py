@@ -78,7 +78,7 @@ class MldVae(nn.Module):
             activation,
             normalize_before,
         )
-        encoder_layer = FFTNetLayer(dim=self.latent_dim)
+        #encoder_layer = FFTNetLayer(dim=self.latent_dim)
         encoder_norm = nn.LayerNorm(self.latent_dim)
         self.encoder = SkipTransformerEncoder(encoder_layer, num_layers,
                                               encoder_norm)
